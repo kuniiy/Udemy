@@ -1,0 +1,55 @@
+<%= render 'partial/navbar' %>
+<div class="container">
+    <div class="col-md-3">
+        <!-- vertical-navbar -->
+        <%= render 'partial/verticalnavbar'%>
+    </div>
+    <div class="col-md-9">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+              <div class="text-center">
+                  <span style="font-size:24px;">基本データの編集</span>
+              </div>
+          </div>
+
+          <div class="panel-body">           
+              <%= form_for @listing do |f| %>
+                  <div class="row">
+                      <div class="col-md-12 select">
+                          <div class="form-group">
+                             <label>エリアの種類</label>
+									<%= f.select :area_type, [["北海道","北海道"], ["東北","東北"], ["関東","関東"],["東海","東海"],["関西","関西"],["九州","九州"],["沖縄","沖縄"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+								</div>
+                      </div>
+                  </div>
+                  <br>
+
+                  <div class="row">
+                      <div class="col-md-12 select">
+                          <div class="form-group">
+                              <label>カテゴリーの種類</label>
+									<%= f.select :category_type, [["山","山"], ["海","海"], ["都会","都会"]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+								</div>
+                      </div>
+                  </div>
+                  <br>
+
+                  <div class="row">
+                      <div class="col-md-12 select">
+                          <div class="form-group">
+                             <label>人数</label>
+									<%= f.select :people_type, [["1人",1], ["2人",2], ["3人",3], ["4人",4], ["5人以上",5]], {prompt:"選択してください"}, {required: 'true', autofocus: 'true', class: 'form-control'} %>
+								</div>
+                      </div>
+                  </div>
+                  <br>
+
+
+                  <div class="actions">
+                      <%= f.submit "更新", class: "btn btn-danger" %>
+                  </div>
+              <% end %>
+          </div>
+      </div>
+  </div>
+</div>
