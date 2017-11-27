@@ -9,7 +9,7 @@ end
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+#gem 'sqlite3'
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
@@ -31,6 +31,17 @@ gem 'toastr-rails'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem "paperclip", "~> 5.0.0"
+gem 'dropzonejs-rails'
+gem "figaro","~> 1.1.0"
+
+group :production do
+    gem 'pg'
+    gem 'rails_12factor'
+end
+
+group :development, :test do
+    gem 'sqlite3'
+end
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 3.0'
 # Use ActiveModel has_secure_password
