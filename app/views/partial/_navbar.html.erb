@@ -26,13 +26,13 @@
     <li><%= link_to "ホストになる", new_listing_path %></li>
      <li class="dropdown">
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-      <% if current_user.provider %>
+      <% if current_user.provider.present? %>
       
 <!--      認証ログインをしている時-->
      <%= image_tag current_user.image, class:"img-circle profile-0" %>
      <% current_user.name %>
 <% else %>
-     <% current_user.email %>
+     <%= current_user.email.split("@")[0] %>
      <% end %>
       <span class="caret"></span>
       </a>
@@ -40,6 +40,7 @@
       <ul class="dropdown-menu">
        <li><%= link_to "プロフィール", user_path(current_user) %></li>
        <li><%= link_to "プロフィール編集", edit_user_registration_path %></li>
+       <li><%= link_to "リスティング管理", listings_path %></li>
         <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
       </ul>
     </li>

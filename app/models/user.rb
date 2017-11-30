@@ -2,31 +2,16 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable
+         :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: [:facebook]
 
-    has_many :listings
-    
-  def self.find_for_oauth(auth)
-    user = User.where(uid: auth.uid, provider: auth.provider).first
- 
-    unless user
-      user = User.create(
-        uid:      auth.uid,
-        provider: auth.provider,
-        email:    auth.info.email,
-        password: Devise.friendly_token[0, 20]
-#        name: auth.info.name,
-#        image: auth.info.image
-      )
-    end
- 
-    return user
-  end
-    
-#     private
-#
-#  def self.dummy_email(auth)
-#    "#{auth.uid}-#{auth.provider}@example.com"
-#  end
- 
+  has_many :listings
+
+  def self.from_omniauth(auth)
+	  where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+	    user.email = auth.info.email
+	    user.password = Devise.friendly_token[0,20]
+	    user.name = auth.info.name   # assuming the user model has a name
+	    user.image = "http://graph.facebook.com/#{auth.uid}/picture?type=large" # assuming the user model has an image
+	  end
+	end
 end

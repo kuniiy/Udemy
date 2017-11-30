@@ -5,4 +5,7 @@ class Listing < ApplicationRecord
     validates :area_type, presence: true
     validates :category_type, presence: true
     validates :people_type, presence: true
+    
+    geocoded_by :address
+    after_validation :geocode, :if => :address_changed?
 end

@@ -94,6 +94,7 @@ GEM
     ffi (1.9.18)
     figaro (1.1.1)
       thor (~> 0.14)
+    geocoder (1.4.5)
     globalid (0.4.1)
       activesupport (>= 4.2.0)
     hashie (3.5.6)
@@ -259,6 +260,7 @@ DEPENDENCIES
   devise
   dropzonejs-rails
   figaro (~> 1.1.0)
+  geocoder
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
