@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     
  root :to => 'pages#index'
     
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",:registrations => 'registrations' }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
   resources :users, only: [:show]
     
@@ -11,11 +11,14 @@ Rails.application.routes.draw do
     collection do
         get :list
     end
-  end
+end
     
  resources :listings do
      resources :reservations, only: [:create]
  end
+    
+  get '/setdate' => 'reservations#setdate'
+  get '/duplicate' => 'reservations#duplicate'
     
   get 'manage-listing/:id/basics' => 'listings#basics', as:'manage_listing_basics'
   get 'manage-listing/:id/description' =>'listings#description', as: 'manage_listing_description'
