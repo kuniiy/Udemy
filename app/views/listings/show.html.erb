@@ -76,7 +76,7 @@
         </div>
 
         <div class="panel-body panel-real">  
-            <%= form_for [@listing, @listing.reservations.new] do |f| %>
+            <%= form_for [@listing, @listing.reservations.new], url: new_listing_reservation_path(@listing), html: {method: "get"} do |f| %>
 
                 <!-- これは、予約をするときに、一緒におくる、データです。-->
                 <%= f.hidden_field :listing_id, value: @listing.id %>
@@ -194,6 +194,7 @@
     <div class="row">
         <div class="col-md-9">
             <h3 class="row-space-3">近くのリスティング</h3>
+            
         <% for listing in @listing.nearbys(10) %>
     <div class="col-md-4">
         <div class="panel panel-default">

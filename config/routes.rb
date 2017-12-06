@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     
  root :to => 'pages#index'
     
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks",:registrations => 'registrations' }
 
   resources :users, only: [:show]
     
@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 end
     
  resources :listings do
-     resources :reservations, only: [:create]
+ resources :reservations, only: [:new, :create]
  end
     
   get '/setdate' => 'reservations#setdate'
