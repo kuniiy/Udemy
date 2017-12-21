@@ -15,8 +15,208 @@
  </div>
  </div>
 </div>
+  <!-- Search Form -->
+  <div class="top-search-field">
+    <%= form_tag search_path, method: :get do %>
+      <div class="row">
+        <div class="container">
+         
+          <%= hidden_field_tag :lat %>
+          <%= hidden_field_tag :lng %>
+          
+          <div class="col-md-7 col-xs-10" style="padding-right: 0px">
+            <%= text_field_tag :search, params[:search], placeholder: "希望の場所はどこですか？", class: "form-control",id:"top-search-form" %>
+          </div>
+
+          <div class="col-md-2 hidden-xs hidden-sm">
+            <%= text_field_tag :start_date, params[:start_date], placeholder: "チェックイン", class: "form-control" %>
+          </div>
+          <div class="col-md-2 hidden-xs hidden-sm">
+            <%= text_field_tag :end_date, params[:end_date], placeholder: "チェックアウト", class: "form-control" %>
+          </div>
+          <div class="col-md-1 col-xs-2" style="padding-left: 0px; ">
+            <%= submit_tag "検索", class: "btn btn-danger" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
 </div>
 
-<h1>Pages#index</h1>
-<p>Find me in app/views/pages/index.html.erb</p>
-<p>Hallo World</p>
+<!--Category-->
+<section id="Category">
+	<div class="layout-a">
+        <h2 class="text-center">カテゴリー<span class="title__ja"></span></h2>
+		<div class="wrapper">
+			<ul class="list-card">
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag "mountain.jpg" %></p>
+							<p class="list-detail">山</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag "ocean.jpg"%></p>
+							<p class="list-detail">海</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"city.jpg" %></p>
+							<p class="list-detail">都会</p>
+                        </div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<!--//Category-->
+
+<!--Area-->
+<section id="Category">
+	<div class="layout-a">
+        <h2 class="text-center">地域<span class="title__ja "></span></h2>
+		<div class="wrapper">
+			<ul class="list-card">
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"hokkaido.jpg" %></p>
+							<p class="list-detail">北海道</p>
+				   </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"touhoku.jpg" %></p>
+							<p class="list-detail">東北</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"kantou.jpg" %></p>
+							<p class="list-detail">関東</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"toukai.jpg" %></p>
+							<p class="list-detail">東海</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"kansai.jpg" %></p>
+							<p class="list-detail">関西</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"kyuusyu.jpg" %></p>
+							<p class="list-detail">九州</p>
+                        </div>
+					</a>
+				</li>
+				<li class="list-card__item">
+					<a href="#">
+					<div class="aria">
+						<p class="list-thumb"><%= image_tag"okinawa.jpg" %></p>
+							<p class="list-detail">沖縄</p>
+                        </div>
+					</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</section>
+<!--//Aria-->
+
+<!--footer-->
+<footer class="footer text-center">
+	<small class="copyrights">copyrights 2017 urbangroup Tokyo All RIghts Reserved.
+	</small>
+</footer>
+<!--// footer-->
+
+
+<script>
+  $(document).ready(function(){
+    $('.slider').bxSlider({
+        slideWidth: 300,
+        slideMargin: 20,
+        minSlides: 3,
+        maxSlides: 3
+    });
+  });
+</script>
+
+<%= render 'pages/footer' %>
+
+<!-- datepickerのスクリプト -->
+<script>
+  $(function() {
+    $("#start_date").datepicker({
+      dateFormat: 'dd-mm-yy',
+      minDate: 0,
+      maxDate: '3m',
+      onSelect: function(selected) {
+        $('#end_date').datepicker("option", "minDate", selected);
+        $('#end_date').attr('disabled', false);
+      }
+    });
+
+    $("#end_date").datepicker({
+      dateFormat: 'dd-mm-yy',
+      minDate: 0,
+      maxDate: '3m',
+      onSelect: function(selected) {
+        $('#start_date').datepicker("option", "maxDate", selected);
+      }
+    });
+  })
+</script>
+
+<script>
+function init() {
+    
+  var input = /** @type {!HTMLInputElement} */(
+      document.getElementById('top-search-form'));
+
+  var autocomplete = new google.maps.places.Autocomplete(input);
+
+  autocomplete.addListener('place_changed', function() {
+
+    var place = autocomplete.getPlace();
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+      
+    document.getElementById('lat').value = lat ;
+    document.getElementById('lng').value = lng ;
+      
+    if (!place.geometry) {
+      window.alert("Autocomplete's returned place contains no geometry");
+      return;
+    }
+
+  });
+}
+
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB1v0RedK8j1xFzfciFRb1vAbh-xdnCxPg&signed_in=true&libraries=places&callback=init"
+    async defer></script>
