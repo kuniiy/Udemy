@@ -8,7 +8,6 @@ class PagesController < ApplicationController
         
        session[:address] = params[:search]
         
-        
       if params["lat"].present? & params["lng"].present?
         @latitude = params["lat"]
         @longitude = params["lng"]
